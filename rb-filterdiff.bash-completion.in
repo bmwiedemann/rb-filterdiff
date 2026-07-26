@@ -1,0 +1,55 @@
+# bash completion for rb-filterdiff                        -*- shell-script -*-
+#
+# First word: complete the filter, offering
+#   * the bundled named filters (from libexecdir), and
+#   * filters used before, read from the history file
+#     ($RB_FILTERDIFF_HISTORY, default ~/.rb-filterdiff_history) -- each line
+#     there is a past command line whose 2nd shell-word is the filter, so a
+#     multi-word filter such as `rpm\ -qpvl` is offered as one argument.
+# Later words: complete file names (file1 file2 ... plus diff options).
+
+_rb_filterdiff()
+{
+    local cur prev words cword
+    if declare -F _init_completion >/dev/null 2>&1; then
+        _init_completion || return
+    else
+        cur=${COMP_WORDS[COMP_CWORD]}
+        cword=$COMP_CWORD
+    fi
+
+    if [[ $cword -ne 1 ]]; then
+        if declare -F _filedir >/dev/null 2>&1; then
+            _filedir
+        else
+            COMPREPLY=( $(compgen -f -- "$cur") )
+        fi
+        return
+    fi
+
+    local filterdir="@FILTERDIR@"
+    local histfile="${RB_FILTERDIFF_HISTORY:-$HOME/.rb-filterdiff_history}"
+
+    local -a cands=()
+    local f
+    if [[ -d $filterdir ]]; then
+        for f in "$filterdir"/*; do
+            [[ -e $f ]] && cands+=( "${f##*/}" )
+        done
+    fi
+    if [[ -r $histfile ]]; then
+        # 2nd shell-word of each history line = the filter; \<space> keeps
+        # multi-word filters together (encode as SOH while field-splitting).
+        local line
+        while IFS= read -r line; do
+            [[ -n $line ]] && cands+=( "$line" )
+        done < <(sed 's/\\ /\x01/g' "$histfile" | awk 'NF>1{print $2}' \
+                 | tr '\001' ' ' | sort -u)
+    fi
+
+    local c
+    for c in "${cands[@]}"; do
+        [[ $c == "$cur"* ]] && COMPREPLY+=( "$(printf '%q' "$c")" )
+    done
+}
+complete -F _rb_filterdiff rb-filterdiff

@@ -31,6 +31,7 @@ Requires:       coreutils
 Requires:       diffutils
 Requires:       grep
 Requires:       sed
+Recommends:     bash-completion
 # The bundled filters pull these in only when actually used:
 Recommends:     binutils
 Recommends:     cpio
@@ -62,5 +63,6 @@ filters used when debugging reproducible builds.
 %doc README.md
 %{_bindir}/rb-filterdiff
 %{_libexecdir}/rb-filterdiff/
+%{_datadir}/bash-completion/completions/rb-filterdiff
 
 %changelog

@@ -56,7 +56,20 @@ cmake --build build
 cmake --install build          # honors DESTDIR / CMAKE_INSTALL_PREFIX
 ```
 
-`rb-filterdiff` is installed to bindir; the filters to `<libexecdir>/rb-filterdiff/`.
+`rb-filterdiff` is installed to bindir; the filters to `<libexecdir>/rb-filterdiff/`;
+a bash completion to `<datadir>/bash-completion/completions/`.
+
+## Bash completion
+
+Completing the first argument offers the bundled filter names plus filters you have
+used before. The history is read from `$RB_FILTERDIFF_HISTORY` (default
+`~/.rb-filterdiff_history`); each line is treated as a past command line whose second
+shell-word is the filter, so multi-word filters like `rpm\ -qpvl` are offered as a
+single argument. Point it at your own log with, e.g.:
+
+```sh
+export RB_FILTERDIFF_HISTORY=~/git/reproducibleopensuse/filterdiffhistory
+```
 
 ## License
 

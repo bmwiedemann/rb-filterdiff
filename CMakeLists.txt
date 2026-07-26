@@ -14,3 +14,9 @@ install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/rb-filterdiff"
 file(GLOB filters "${CMAKE_CURRENT_SOURCE_DIR}/filter/*")
 install(PROGRAMS ${filters}
         DESTINATION "${CMAKE_INSTALL_LIBEXECDIR}/rb-filterdiff")
+
+# bash completion (offers the bundled filters + past filters from history)
+configure_file(rb-filterdiff.bash-completion.in rb-filterdiff.bash-completion @ONLY)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/rb-filterdiff.bash-completion"
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/bash-completion/completions"
+        RENAME rb-filterdiff)
