@@ -17,7 +17,7 @@
 
 
 Name:           rb-filterdiff
-Version:        0
+Version:        1.0.0
 Release:        0
 Summary:        Filter-and-diff helper for debugging reproducible builds
 License:        GPL-2.0-or-later
@@ -32,13 +32,13 @@ Requires:       diffutils
 Requires:       grep
 Requires:       sed
 Recommends:     bash-completion
-# The bundled filters pull these in only when actually used:
+# For bundled filters
 Recommends:     binutils
 Recommends:     cpio
 Recommends:     gawk
 Recommends:     gnutls
 Recommends:     perl
-Recommends:     python3-xdis
+#Recommends:     python3-xdis
 Recommends:     rpm
 Recommends:     strace
 
