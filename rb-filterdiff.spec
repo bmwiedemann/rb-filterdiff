@@ -17,13 +17,13 @@
 
 
 Name:           rb-filterdiff
-Version:        1.0.0
+Version:        filled-in-by-service
 Release:        0
 Summary:        Filter-and-diff helper for debugging reproducible builds
 License:        GPL-2.0-or-later
 Group:          Development/Tools/Building
 URL:            https://github.com/bmwiedemann/reproducibleopensuse
-Source:         %{name}-%{version}.tar.xz
+Source:         %{name}-%{version}.tar
 BuildRequires:  cmake
 BuildArch:      noarch
 Requires:       bash
