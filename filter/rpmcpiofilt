@@ -1,0 +1,3 @@
+#!/bin/sh
+# for filterdiff
+rpm2cpio $1 | cpio -vt

@@ -1,0 +1,3 @@
+#!/bin/sh
+# un-uglify compiled javascript
+sed -e 's/[;]/&\n/g' $1

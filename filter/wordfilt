@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+# for use with filterdiff for files with long lines
+use strict;
+$ARGV[0] and open(STDIN, "<", $ARGV[0]);
+while(<>) {
+    s/ /\n/g;
+    print;
+}

@@ -1,0 +1,3 @@
+#!/bin/sh
+# filter for filterdiff
+strings "$1" | sort

@@ -1,0 +1,13 @@
+#!/usr/bin/perl -w
+# filter for filterdiff for finding+diffing which packages got installed
+use strict;
+
+our @pkgs;
+while(<>) {
+    s/\x1b.//g; # strip escape characters to not mess with the terminal
+    $_=substr($_, 9);
+    if(m,\[\d+/\d+\] (?:preinstalled|cumulate) (.*)\.\d+,) {
+        push(@pkgs, $1)
+    }
+}
+print join("\n", sort(@pkgs)),"\n";
