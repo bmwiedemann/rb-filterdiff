@@ -1,0 +1,11 @@
+#!/bin/bash
+# Make the bundled named filters (asmfilt, difflogfilt, ...) resolvable while
+# still allowing an arbitrary command (e.g. 'cut -c9-') as the filter.
+PATH="@FILTERDIR@:$PATH"
+filter=$1 ; shift
+in1=$1 ; shift
+in2=$1 ; shift
+diff -u \
+  --label "$filter $in1" <($filter "$in1") \
+  --label "$filter $in2" <($filter "$in2") \
+  "$@"
